@@ -4,7 +4,7 @@ class SmartSearch:
 
     def __init__(self):
         self.maxV = -float('inf')
-        self.minV = float('inf')
+        self.minV = float('inf') #min should never be less than 0
         self.size = 0
         self.array = [] #this would theoretically represent a map of (IntegerKey -> AnyType)
 
@@ -40,23 +40,23 @@ class SmartSearch:
             #should shift start index to pivot index + 1
             return self.smartSearchRec(val, pivotIndex + 1, endIndex, 1)
         return pivotVal, pivotIndex, 1
-
+    #the error or matching cases are not properly functioning, so there is endless recursion occuring
     def smartSearchRec(self, val, startIndex, endIndex, iterations):
         if self.size == 1: #even if the val isnt in the array we need to return
             return startIndex, endIndex, self.array[startIndex]
         if self.size == 0 or (endIndex - startIndex) == 0:
             return #basic error handling
-        pivotPercent = val/(self.array[endIndex - 1] - self.array[startIndex]) #calculate the percentile in the range
+        pivotPercent = val/(self.array[endIndex] - self.array[startIndex]) #calculate the percentile in the range
         #(endIndex - startIndex) is # of elements in our working range
-        pivotIndex = int(pivotPercent*((endIndex) - startIndex))
+        pivotIndex = int(pivotPercent*((endIndex) - startIndex)) #needs bounds checking
         pivotVal = self.array[pivotIndex]
         print "iteration: ", iterations, ", pivot index: ", pivotIndex
         if pivotVal > val:
             #new range becomes start index to pivot index as the pivot is greater than our val
-            return self.smartSearchRec(val, startIndex, pivotIndex, iterations + 1)
+            return self.smartSearchRec(val, startIndex, pivotIndex - 1, iterations + 1)
         if pivotVal < val:
             #val in right subsection of array
-            return self.smartSearchRec(val, pivotIndex, endIndex, iterations + 1)
+            return self.smartSearchRec(val, pivotIndex + 1, endIndex, iterations + 1)
         return pivotVal, pivotIndex, iterations
 
 
