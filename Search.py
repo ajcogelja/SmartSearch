@@ -33,10 +33,12 @@ class SmartSearch:
         pivotVal = self.array[pivotIndex]
         if pivotVal > val:
             #new range becomes start index to pivot index as the pivot is greater than our val
-            return self.smartSearchRec(val, startIndex, pivotIndex, 1)
+            #should shift the right index to pivotIndex - 1
+            return self.smartSearchRec(val, startIndex, pivotIndex - 1, 1)
         if pivotVal < val:
             #val in right subsection of array
-            return self.smartSearchRec(val, pivotIndex, endIndex, 1)
+            #should shift start index to pivot index + 1
+            return self.smartSearchRec(val, pivotIndex + 1, endIndex, 1)
         return pivotVal, pivotIndex, 1
 
     def smartSearchRec(self, val, startIndex, endIndex, iterations):
