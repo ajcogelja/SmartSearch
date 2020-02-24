@@ -1,4 +1,4 @@
-class SmartSort:
+class SmartSearch:
 
 #not perfectly written, quick mockup
 
@@ -59,7 +59,7 @@ class SmartSort:
 
 
 if __name__ == '__main__':
-    sort = SmartSort()
+    sort = SmartSearch()
     for v in range(1, 50):
         if v%2 is 0 or v % 3 is 0:
             sort.insert(v)
