@@ -40,6 +40,8 @@ class SmartSort:
         return pivotVal, pivotIndex, 1
 
     def smartSearchRec(self, val, startIndex, endIndex, iterations):
+        if self.size == 1: #even if the val isnt in the array we need to return
+            return startIndex, endIndex, self.array[startIndex]
         if self.size == 0 or (endIndex - startIndex) == 0:
             return #basic error handling
         pivotPercent = val/(self.array[endIndex - 1] - self.array[startIndex]) #calculate the percentile in the range
